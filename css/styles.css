@@ -44,11 +44,7 @@ html {
 }
 
 body {
-  background-image: url('../assets/desk_background.png');
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-  background-repeat: no-repeat;
+  background-color: #0f1115;
   font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   color: var(--text-primary);
   line-height: 1.5;
@@ -56,6 +52,21 @@ body {
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
   padding-bottom: 100px;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -10;
+  background-image: url('../assets/desk_background.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  pointer-events: none;
 }
 
 /* Hide scrollbars */
@@ -361,11 +372,11 @@ body { -ms-overflow-style: none; scrollbar-width: none; }
   margin: 16px;
   border-radius: var(--radius-lg);
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  background: rgba(255, 255, 255, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.88) !important;
   backdrop-filter: blur(25px);
   -webkit-backdrop-filter: blur(25px);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.15);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
   transition: transform 0.2s;
 }
 
@@ -1634,9 +1645,9 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   bottom: 0;
   left: 0;
   right: 0;
-  background: var(--bg-secondary);
-  border-top: 1px solid var(--border-light);
-  box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.1);
+  background: #FFFFFF !important;
+  border-top: 2.5px solid #C0C4CC !important;
+  box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.25) !important;
   z-index: 150;
   transform: translateY(100%);
   transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
@@ -1652,8 +1663,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   justify-content: space-between;
   align-items: center;
   padding: 10px 16px;
-  border-bottom: 1px solid var(--border);
-  background: var(--bg-card-hover);
+  border-bottom: 1.5px solid #E0E4EC !important;
+  background: #F1F3F7 !important;
 }
 
 .keypad-product-info {
@@ -1668,7 +1679,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .keypad-product-name {
   font-weight: 700;
   font-size: 0.92rem;
-  color: var(--text-primary);
+  color: #000000 !important;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -1676,13 +1687,13 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 .keypad-product-details {
   font-size: 0.72rem;
-  color: var(--text-tertiary);
+  color: #555559 !important;
 }
 
 .btn-keypad-close {
-  background: var(--bg-primary);
-  border: 1px solid var(--border);
-  color: var(--text-secondary);
+  background: #FFFFFF !important;
+  border: 1.5px solid #C0C4CC !important;
+  color: #333333 !important;
   padding: 6px 14px;
   border-radius: var(--radius-sm);
   font-weight: 700;
@@ -1693,7 +1704,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 .btn-keypad-close:active {
-  background: var(--border-light);
+  background: #E0E4EC !important;
   transform: scale(0.95);
 }
 
@@ -1706,12 +1717,12 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 .keypad-key {
   height: 48px;
-  background: var(--bg-primary);
-  border: 1px solid var(--border);
+  background: #FFFFFF !important;
+  border: 1.5px solid #C0C4CC !important;
   border-radius: var(--radius-md);
-  color: var(--text-primary);
-  font-size: 1.2rem;
-  font-weight: 700;
+  color: #000000 !important;
+  font-size: 1.25rem;
+  font-weight: 800;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1720,34 +1731,37 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   -webkit-user-select: none;
   transition: var(--transition);
   font-family: inherit;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
 
 .keypad-key:active {
-  background: var(--border-light);
+  background: #E0E4EC !important;
   transform: scale(0.94);
 }
 
 .keypad-key.btn-delete-key {
-  background: rgba(0, 0, 0, 0.04);
+  background: #E0E4EC !important;
+  border: 1.5px solid #B0BEC5 !important;
+  color: #000000 !important;
   font-size: 1.05rem;
 }
 
 .keypad-key.btn-delete-key:active {
-  background: var(--border-light);
+  background: #B0BEC5 !important;
 }
 
 .keypad-key.btn-action-key {
   grid-column: 4;
   grid-row: 2 / 5;
   height: auto;
-  background: var(--red);
-  color: #FFFFFF;
+  background: var(--red) !important;
+  color: #FFFFFF !important;
+  border: 1.5px solid var(--red-light) !important;
   font-size: 0.88rem;
-  border-color: var(--red-light);
 }
 
 .keypad-key.btn-action-key:active {
-  background: var(--red-light);
+  background: var(--red-light) !important;
 }
 
 @media (max-width: 768px) {
@@ -1901,7 +1915,9 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   width: 100%;
   min-height: 100vh;
   padding: 40px 24px;
-  background: var(--bg-primary);
+  background: rgba(15, 17, 21, 0.5) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -2216,6 +2232,10 @@ body.high-contrast-mode {
   background-image: none !important;
   background-color: #F0F2F5 !important;
   color: #000000 !important;
+}
+
+body.high-contrast-mode::before {
+  display: none !important;
 }
 
 body.high-contrast-mode .category-section {

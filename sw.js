@@ -1,4 +1,4 @@
-const CACHE_NAME = 'cocacola-plantillas-v52';
+const CACHE_NAME = 'cocacola-plantillas-v54';
 const ASSETS = [
   './',
   './index.html',
