@@ -1,0 +1,17 @@
+{
+  "name": "Coca-Cola Plantillas de Pedidos",
+  "short_name": "CC Plantillas",
+  "description": "Aplicación para realizar plantillas de pedidos de Coca-Cola",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#F4F4F6",
+  "theme_color": "#E61E2A",
+  "icons": [
+    {
+      "src": "assets/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

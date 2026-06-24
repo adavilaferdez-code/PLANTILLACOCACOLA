@@ -1,0 +1,121 @@
+LINE 1 (content):
+<USER_REQUEST>
+Create the product data catalog file for a Coca-Cola order template application.
+
+File path: C:\Users\Adfgd\.gemini\antigravity\scratch\cocacola-plantillas\js\data.js
+
+This file should export a global variable `PRODUCT_CATALOG` which is an array of category objects.
+
+Each category object has:
+```javascript
+{
+  id: 'string',       // unique category ID
+  name: 'string',     // display name (e.g., 'LATA 50 CL')
+  group: 'string',    // parent group: 'cocacola', 'zumos', or 'aguas'
+  color: 'string',    // hex color for the category header
+  products: [...]     // array of product objects
+}
+```
+
+Each product object has:
+```javascript
+{
+  id: 'string',           // unique product ID
+  marca: 'string',        // product name/brand
+  uniCaja: number,        // units per case
+  precio: number,         // price per case in EUR
+  pFondo: number          // deposit price (0 for most products)
+}
+```
+
+Here is the COMPLETE product catalog organized by category. Include ALL products listed below.
+Use these EXACT colors:
+- cocacola group: '#E61E2A' (red)
+- zumos group: '#1565C0' (blue)
+- aguas group: '#0097A7' (teal)
+
+---
+
+GROUP: cocacola
+
+1. Category: 'LATA 50 CL' (id: 'lata_50cl')
+   - BURN / BURN ZERO | uniCaja: 12 | precio: 36.48
+   - MONSTER ENERGY / REINA / JUICED / ULTRA | uniCaja: 24 | precio: 56.16
+   - MONSTER REIGN | uniCaja: 12 | precio: 78.00
+
+2. Category: 'PREMIX 20 LTR' (id: 'premix_20ltr')
+   - COCA-COLA (x2 cajas de 24 ud.) | uniCaja: 24 | precio: 84.00
+   - FANTA (x1 caja de 24 ud.) | uniCaja: 24 | precio: 81.00
+   - SPRITE (x2 cajas de 24 ud.) | uniCaja: 24 | precio: 84.20
+   - NORDIC MIST (x2 cajas de 24 ud.) | uniCaja: 24 | precio: 80.20
+
+3. Category: 'B.I.B. 10 Lts' (id: 'bib_10lts')
+   - COCA-COLA (36,65 cajas de 24 ud.) | uniCaja: 24 | precio: 600.00
+   - COCA-COLA CC ZERO (12,25 cajas 20) | uniCaja: 20 | precio: 500.00
+
+4. Category: 'B.I.B. 5 Lts' (id: 'bib_5lts')
+   Note in header: 'Fanta 0,67 / cajas de 3 uds. Excepto Fanta es 0,55 cajas de 24 uds.'
+   - FANTA NARANJA Y ZERO | uniCaja: 
+<truncated 5703 bytes>
+0 CC' (id: 'ret_500cc')
+    - AQUABONA (12 ud) | uniCaja: 30 | precio: 30.30
+
+30. Category: 'RETORNABLE LITRO' (id: 'ret_litro')
+    - AQUABONA (12 ud) | uniCaja: 12 | precio: 15.32
+
+31. Category: 'PET 35 CL' (id: 'pet_35cl')
+    - AQUABONA (24 ud) | uniCaja: 24 | precio: 17.76
+
+32. Category: 'PET 50 CL AQUABONA' (id: 'pet_50cl_aqb')
+    - AQUABONA (24 ud) | uniCaja: 24 | precio: 36.64
+
+33. Category: 'PET 50 CL AQB. CON GAS' (id: 'pet_50cl_aqb_gas')
+    - AQUABONA SINGULAR CON GAS | uniCaja: 12 | precio: 11.00
+
+34. Category: 'PET 1,5 LTR - Agua' (id: 'pet_15_agua')
+    - AQUABONA | uniCaja: 6 | precio: 9.48
+
+35. Category: 'VMR 33 CL' (id: 'vmr_33cl_agua')
+    - VILAS DEL TURBÓN (24 ud) | uniCaja: 24 | precio: 37.36
+
+36. Category: 'VMR 75 CL' (id: 'vmr_75cl_agua')
+    - VILAS DEL TURBÓN (6 ud) | uniCaja: 6 | precio: 14.28
+
+37. Category: 'PET 50 CL - Agua' (id: 'pet_50cl_agua')
+    - VILAS DEL TURBÓN (24 ud) | uniCaja: 24 | precio: 18.00
+
+38. Category: 'PET 1 Litro - Agua' (id: 'pet_1l_agua')
+    - VILAS DEL TURBÓN (6 ud) | uniCaja: 6 | precio: 6.93
+
+39. Category: 'PET 500 ML - Agua' (id: 'pet_500ml_agua')
+    - BEATWATER | uniCaja: 6 | precio: 11.48
+
+---
+
+IMPORTANT RULES:
+- Products with no pFondo specified should have pFondo: 0
+- Use descriptive IDs for products (e.g., 'lata50_burn', 'pet500_cocacola')
+- Make sure ALL product IDs are unique across the entire catalog
+- Format the file cleanly with proper indentation
+- The file should define a global constant: `const PRODUCT_CATALOG = [...]`
+- Also define group metadata: `const PRODUCT_GROUPS = { cocacola: { name: 'COCA-COLA', color: '#E61E2A', icon: '🔴' }, zumos: { name: 'ZUMOS - BAC', color: '#1565C0', icon: '🧃' }, aguas: { name: 'AGUAS', color: '#0097A7', icon: '💧' } }`
+- Add a comment at the top: '// Catálogo de productos Coca-Cola - Actualizado Junio 2026'
+- NO module exports, NO import/export statements. Just plain global variables.
+</USER_REQUEST>
+<ADDITIONAL_METADATA>
+The current local time is: 2026-06-13T16:38:33+02:00.
+</ADDITIONAL_METADATA>
+
+LINE 2 (content):
+
+
+LINE 2 (tool_call write_to_file):
+{
+  "CodeContent": "\"// Cat\u00e1logo de productos Coca-Cola - Actualizado Junio 2026\\n\\nconst PRODUCT_GROUPS = {\\n  cocacola: { name: 'COCA-COLA', color: '#E61E2A', icon: '\ud83d\udd34' },\\n  zumos:    { name: 'ZUMOS - BAC', color: '#1565C0', icon: '\ud83e\uddc3' },\\n  aguas:    { name: 'AGUAS', color: '#0097A7', icon: '\ud83d\udca7' }\\n};\\n\\nconst PRODUCT_CATALOG = [\\n\\n  // \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\\n  //  GROUP: COCA-COLA\\n  // \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\\n\\n  // 1. LATA 50 CL\\n  {\\n    id: 'lata_50cl',\\n    name: 'LATA 50 CL',\\n    group: 'cocacola',\\n    color: '#E61E2A',\\n    products: [\\n      { id: 'lata50_burn',           marca: 'BURN / BURN ZERO',                              uniCaja: 12, precio: 36.48, pFondo: 0 },\\n      { id: 'lata50_monster',        marca: 'MONSTER ENERGY / REINA / JUICED / ULTRA',        uniCaja: 24, precio: 56.16, pFondo: 0 },\\n      { id: 'lata50_monster_reign',  marca: 'MONSTER REIGN',                                  uniCaja: 12, precio: 78.00, pFondo: 0 }\\n    ]\\n  },\\n\\n  // 2. PREMIX 20 LTR\\n  {\\n    id: 'premix_20ltr',\\n    name: 'PREMIX 20 LTR',\\n    group: 'cocacola',\\n    color: '#E61E2A',\\n    products: [\\n      { id: 'premix_cocacola',    marca: 'COCA-COLA (x2 cajas de 24 ud.)',     uniCaja: 24, precio: 84.00, pFondo: 0 },\\n      { id: 'premix_fanta',       marca: 'FANTA (x1 caja de 24 ud.)',          uniCaja: 24, precio: 81.00, pFondo: 0 },\\n      { id: 'premix_sprite',      marca: 'SPRITE (x2 cajas de 24 ud.)',        uniCaja: 24, precio: 84.20, pFondo: 0 },\\n      { id: 'premix_nordic',      marca: 'NORDIC MIST (x2 cajas de 24 ud.)',   uniCaja: 24, precio: 80.20, pFondo: 0 }\\n    ]\\n  },\\n\\n  // 3. B.I.B. 10 Lts\\n  {\\n    id: 'bib_10lts',\\n    name: 'B.I.B. 10 Lts',\\n    group: 'cocacola',\\n \n<truncated 17782 bytes>",
+  "Description": "\"Complete product catalog for Coca-Cola order template app with 39 categories across 3 groups (cocacola, zumos, aguas), all products with unique IDs, and group metadata.\"",
+  "IsArtifact": "false",
+  "Overwrite": "true",
+  "TargetFile": "\"C:\\\\Users\\\\Adfgd\\\\.gemini\\\\antigravity\\\\scratch\\\\cocacola-plantillas\\\\js\\\\data.js\"",
+  "toolAction": "\"Creating data.js file\"",
+  "toolSummary": "\"Product catalog data file\""
+}

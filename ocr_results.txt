@@ -1,0 +1,16 @@
+﻿=========================================
+FILE: media__1781360748574.png (ERROR)
+=========================================
+Error: No se encuentra el tipo [Windows.Storage.StorageFile].
+
+=========================================
+FILE: media__1781360753476.png (ERROR)
+=========================================
+Error: No se encuentra el tipo [Windows.Storage.StorageFile].
+
+=========================================
+FILE: media__1781360758328.png (ERROR)
+=========================================
+Error: No se encuentra el tipo [Windows.Storage.StorageFile].
+
+
