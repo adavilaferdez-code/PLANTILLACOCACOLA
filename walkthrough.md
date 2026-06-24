@@ -1,20 +1,18 @@
 # Documentación de la Aplicación Coca-Cola Plantillas
 
-He añadido el **Visor de Catálogo Oficial 2025 integrado** a pantalla completa y su respectivo botón flotante (`#fab-catalog`), optimizado para el uso 100% sin conexión (offline) en tu iPad.
+He configurado la **apertura directa del Catálogo Oficial 2025** a pantalla completa en una nueva pestaña al pulsar el botón flotante (`#fab-catalog`), eliminando la ventana modal interna y asegurando la máxima nitidez y el uso 100% offline en tu iPad.
 
 ---
 
-## 📖 Visor de Catálogo Oficial 2025 (¡NUEVO!)
+## 📖 Apertura del Catálogo en Nueva Pestaña (¡NUEVO!)
 
-Se ha incorporado el catálogo oficial en formato PDF directamente en la aplicación para una consulta rápida e interactiva:
+Se ha rediseñado la consulta del catálogo oficial en formato PDF para que sea directa y de máxima calidad:
 
-*   **Tercer Botón Flotante (`#fab-catalog`)**: Un nuevo botón de color azul con el icono de catálogo/directorio, ubicado verticalmente por encima del botón de correo (`#fab-email`).
-*   **Visor de PDF Integrado a Pantalla Completa**: Al pulsar el botón azul, se despliega un modal a pantalla completa con un lector de PDF interactivo. Puedes hojear las 25 páginas del catálogo oficial, hacer zoom con pellizco táctil y navegar fácilmente.
-*   **Accesos Rápidos por Familia (¡NUEVO!)**: Se ha incorporado una barra de herramientas superior con botones de salto de página rápido divididos por canales (**Alimentación** y **Hostelería**). Al pulsarlos, el catálogo saltará directamente a la página correspondiente (refrescos, aguas, deportes/zumos o energéticas).
-*   **Inicio en el Índice (Página 3)**: El visor se abre siempre por defecto en la página 3 (índice del canal) y limpia los estados de selección activos de los botones de navegación.
-*   **Gestión de Memoria Limpia**: El archivo PDF de 2.2 MB solo se carga dinámicamente en el iframe al abrir el visor y se destruye al cerrarlo para evitar consumir memoria innecesaria en el iPad.
-*   **Funcionamiento 100% Offline (Sin Cobertura)**: El archivo del catálogo ha sido registrado en la base de recursos del Service Worker. Una vez que la app se actualice en tu iPad, el catálogo estará siempre guardado localmente, por lo que podrás consultarlo con fotos en tus visitas incluso si no tienes cobertura de datos.
-*   **Service Worker v46**: Se ha incrementado la versión de caché a `cocacola-plantillas-v46` para forzar la actualización de los archivos.
+*   **Apertura Directa "En Grande"**: Al pulsar el botón flotante azul del catálogo (`#fab-catalog`), la aplicación ya no abre ninguna ventana modal interna. En su lugar, abre directamente el PDF oficial (`assets/catalogo_2025.pdf`) en una nueva pestaña independiente de Safari a pantalla completa. Esto activa el lector nativo de iOS con el zoom táctil más fluido, máxima resolución y todas las herramientas de búsqueda del sistema.
+*   **Eliminación del Modal Interno**: Se ha eliminado todo el código e interfaces del modal anterior (`#catalog-modal`) para agilizar la aplicación y liberar recursos de memoria en tu iPad.
+*   **Eliminación del Buscador de la Plantilla**: Para optimizar el espacio en la pantalla de pedidos, se ha ocultado el cuadro de búsqueda principal ("Buscar producto o formato..."). La navegación por la plantilla se realiza de forma limpia mediante las pestañas superiores y los desplegables de las categorías.
+*   **Funcionamiento 100% Offline (Sin Cobertura)**: El archivo del catálogo sigue registrado en la base de recursos del Service Worker. Por lo tanto, aunque no tengas cobertura de internet durante tu ruta comercial, al pulsar el botón azul el PDF se abrirá de inmediato desde la memoria local de tu iPad.
+*   **Service Worker v49**: Se ha incrementado la versión de caché a `cocacola-plantillas-v49` para forzar la actualización en todos los iPads.
 
 ---
 

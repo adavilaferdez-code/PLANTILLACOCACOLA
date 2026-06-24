@@ -807,6 +807,37 @@ body { -ms-overflow-style: none; scrollbar-width: none; }
   background: rgba(255, 255, 255, 0.05);
 }
 
+.catalog-modal-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.catalog-modal-external-btn {
+  background: var(--blue);
+  border: none;
+  color: white;
+  padding: 6px 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-family: inherit;
+}
+
+.catalog-modal-external-btn:hover {
+  background: #115293;
+  transform: translateY(-1px);
+}
+
+.catalog-modal-external-btn:active {
+  transform: translateY(0);
+}
+
 .catalog-modal-nav {
   display: flex;
   flex-wrap: wrap;

@@ -922,25 +922,17 @@ function setupEventListeners() {
   document.getElementById('btnPrint').addEventListener('click', generatePDF);
   document.getElementById('fab-whatsapp').addEventListener('click', shareWhatsApp);
   document.getElementById('fab-email').addEventListener('click', shareEmail);
-  document.getElementById('fab-catalog').addEventListener('click', openCatalogModal);
+  document.getElementById('fab-catalog').addEventListener('click', openCatalogExternal);
 
   // Close modal on overlay click
   document.getElementById('modal-overlay').addEventListener('click', function (e) {
     if (e.target === e.currentTarget) closeModal();
   });
 
-  const catalogModal = document.getElementById('catalog-modal');
-  if (catalogModal) {
-    catalogModal.addEventListener('click', function (e) {
-      if (e.target === e.currentTarget) closeCatalogModal();
-    });
-  }
-
   // Close modal on Escape
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape') {
       closeModal();
-      closeCatalogModal();
     }
   });
 
@@ -1629,44 +1621,7 @@ function updateLocation() {
   );
 }
 
-// ============================================================
-// CATALOG MODAL CONTROL
-// ============================================================
-function openCatalogModal() {
-  const modal = document.getElementById('catalog-modal');
-  const iframe = document.getElementById('catalog-iframe');
-  if (modal && iframe) {
-    iframe.src = 'assets/catalogo_2025.pdf#page=3';
-    modal.classList.remove('hidden');
-    
-    // Limpiar botones activos
-    document.querySelectorAll('.nav-page-btn').forEach(btn => {
-      btn.classList.remove('active');
-    });
-  }
-}
-
-function closeCatalogModal() {
-  const modal = document.getElementById('catalog-modal');
-  const iframe = document.getElementById('catalog-iframe');
-  if (modal && iframe) {
-    iframe.src = '';
-    modal.classList.add('hidden');
-  }
-}
-
-function jumpToCatalogPage(pageNumber) {
-  const iframe = document.getElementById('catalog-iframe');
-  if (iframe) {
-    iframe.src = 'assets/catalogo_2025.pdf#page=' + pageNumber;
-  }
-  
-  // Resaltar botón activo
-  document.querySelectorAll('.nav-page-btn').forEach(btn => {
-    btn.classList.remove('active');
-    if (btn.getAttribute('data-page') == pageNumber) {
-      btn.classList.add('active');
-    }
-  });
+function openCatalogExternal() {
+  window.open('assets/catalogo_2025.pdf', '_blank');
 }
 

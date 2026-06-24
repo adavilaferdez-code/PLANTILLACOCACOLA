@@ -134,11 +134,10 @@
 - [x] Incrementar el Service Worker a `v44` en `sw.js`.
 - [x] Sincronizar todos los archivos modificados en la carpeta del Escritorio.
 
-## Fase 20: Visor de Catálogo Oficial 2025 Integrado (¡NUEVO!)
+## Fase 20: Apertura Directa del Catálogo en Nueva Pestaña y Simplificación (¡NUEVO!)
 - [x] Copiar el archivo PDF del catálogo oficial 2025 a `assets/catalogo_2025.pdf`.
-- [x] Añadir el botón flotante `#fab-catalog` y el modal `#catalog-modal` con `iframe` en `index.html`.
-- [x] Crear estilos CSS específicos para `.fab-catalog`, `.catalog-modal` y su comportamiento responsivo en `css/styles.css`.
-- [x] Implementar la lógica de control del modal `openCatalogModal()` y `closeCatalogModal()` en `js/app.js`.
-- [x] Implementar la barra `.catalog-modal-nav` con los botones de accesos rápidos por familias y la función `jumpToCatalogPage(pageNumber)` en `js/app.js`.
-- [x] Registrar el archivo PDF en `sw.js` para almacenamiento offline y actualizar versión a `v46`.
+- [x] Añadir el botón flotante `#fab-catalog` y enlazarlo directamente con `openCatalogExternal()` en `index.html` y `js/app.js`.
+- [x] Ocultar la barra de búsqueda principal de productos en pantalla mediante CSS para despejar espacio.
+- [x] Eliminar el modal `#catalog-modal` de `index.html`, `css/styles.css` y `js/app.js` para aligerar la aplicación.
+- [x] Registrar el archivo PDF en `sw.js` para almacenamiento offline y actualizar versión a `v49`.
 - [x] Sincronizar todos los archivos modificados a la carpeta del Escritorio.
