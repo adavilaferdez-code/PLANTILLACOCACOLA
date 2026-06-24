@@ -23,6 +23,7 @@ function init() {
   setupEventListeners();
   setupKeypad();
   loadAutoSave();
+  loadContrastMode();
   applyFilters();
   handleHeaderScroll();
   registerServiceWorker();
@@ -147,20 +148,21 @@ function renderCategory(cat) {
     rowsHTML += `
       <tr id="row-${p.id}" data-product="${p.id}">
         <td class="marca-cell" data-label="Marca">
-          <div style="font-weight: 600;">${p.marca}</div>
+          <div class="marca-wrapper" style="display: flex; align-items: center; gap: 8px;">
+            ${getBottleSVG(p.marca)}
+            <div style="font-weight: 600;">${p.marca}</div>
+          </div>
         </td>
         <td class="center" data-label="Ud/Caja">${p.uniCaja}</td>
         <td class="center" data-label="Precio">${formatCurrency(p.precio)}</td>
         <td class="input-cell" data-label="Cajas">
           <div class="stepper-container">
+            <button type="button" class="stepper-btn btn-minus" onclick="adjustQty('${p.id}','${cat.id}',-1); event.stopPropagation();">−</button>
             <input type="text" id="qty-${p.id}" class="qty-input" value=""
                    inputmode="none" placeholder="0"
                    onfocus="showKeypad(this)"
                    oninput="onInputChange('${p.id}','${cat.id}')">
-            <div class="stepper-controls">
-              <button type="button" class="stepper-btn btn-minus" onclick="adjustQty('${p.id}','${cat.id}',-1)">−</button>
-              <button type="button" class="stepper-btn btn-plus" onclick="adjustQty('${p.id}','${cat.id}',1)">+</button>
-            </div>
+            <button type="button" class="stepper-btn btn-plus" onclick="adjustQty('${p.id}','${cat.id}',1); event.stopPropagation();">+</button>
           </div>
         </td>
         ${dtoEurHTML}
@@ -917,12 +919,19 @@ function showToast(message) {
 function setupEventListeners() {
   document.getElementById('btnNew').addEventListener('click', newTemplate);
   document.getElementById('btnClearQty').addEventListener('click', clearAllQuantities);
+  document.getElementById('btnNew').addEventListener('click', newTemplate);
+  document.getElementById('btnCapture').addEventListener('click', showVisualCapture);
+  document.getElementById('btnContrast').addEventListener('click', toggleContrastMode);
   document.getElementById('btnSave').addEventListener('click', saveTemplate);
   document.getElementById('btnLoad').addEventListener('click', showLoadModal);
   document.getElementById('btnPrint').addEventListener('click', generatePDF);
-  document.getElementById('fab-whatsapp').addEventListener('click', shareWhatsApp);
-  document.getElementById('fab-email').addEventListener('click', shareEmail);
-  document.getElementById('fab-catalog').addEventListener('click', openCatalogExternal);
+  document.getElementById('btnClearQty').addEventListener('click', clearAllQuantities);
+  
+  // Enlaces de la barra lateral
+  document.getElementById('btn-copy-sidebar').addEventListener('click', shareEmail);
+  document.getElementById('btn-email-sidebar').addEventListener('click', openMailtoComposer);
+  document.getElementById('btn-whatsapp-sidebar').addEventListener('click', shareWhatsApp);
+  document.getElementById('btn-catalog-sidebar').addEventListener('click', openCatalogExternal);
 
   // Close modal on overlay click
   document.getElementById('modal-overlay').addEventListener('click', function (e) {
@@ -1623,5 +1632,227 @@ function updateLocation() {
 
 function openCatalogExternal() {
   window.open('assets/catalogo_2025.pdf', '_blank');
+}
+
+function getBottleSVG(marca) {
+  // Determinar color de la botella según la marca/tipo
+  let color = '#E61E2A'; // rojo por defecto (Coca-Cola clásica)
+  const name = marca.toLowerCase();
+  
+  if (name.includes('zero') || name.includes('reign') || name.includes('burn zero') || name.includes('libre')) {
+    color = '#1E1E1E'; // negro
+  } else if (name.includes('light') || name.includes('zero zero')) {
+    color = '#8A8A8A'; // plata / gris
+  } else if (name.includes('fanta naranja')) {
+    color = '#FF9800'; // naranja
+  } else if (name.includes('fanta limón') || name.includes('limón') || name.includes('aquarius limón')) {
+    color = '#FFD54F'; // amarillo
+  } else if (name.includes('sprite')) {
+    color = '#00E676'; // verde sprite
+  } else if (name.includes('aquabona') || name.includes('vilas') || name.includes('agua')) {
+    color = '#29B6F6'; // azul agua
+  } else if (name.includes('monster') || name.includes('burn')) {
+    color = '#76FF03'; // verde energía / neón
+  } else if (name.includes('nestea') || name.includes('fuze')) {
+    color = '#8D6E63'; // marrón té
+  } else if (name.includes('royal bliss')) {
+    color = '#E91E63'; // rosa royal bliss
+  } else if (name.includes('minute maid') || name.includes('zumos') || name.includes('duofrutas')) {
+    color = '#FFA726'; // naranja zumo
+  }
+
+  return `
+    <svg class="bottle-svg-icon" viewBox="0 0 24 24" style="width: 13px; height: 22px; fill: ${color}; flex-shrink: 0; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.3));">
+      <path d="M12 2c-.55 0-1 .45-1 1v1.5c0 .28.22.5.5.5h1c.28 0 .5-.22.5-.5V3c0-.55-.45-1-1-1zm-.5 4.5c0-.28.22-.5.5-.5h1c.28 0 .5.22.5.5v1.2c-.37.28-.5.7-.5 1.13 0 1.25.75 2.12 1.34 2.9.4.53.66 1.15.66 1.84 0 2.5-1.57 3.93-2.5 5.93-.46.99-.5 2-.5 3h1.5c0-.85.04-1.7.4-2.5.8-1.74 2.1-3 2.1-5.43 0-.96-.4-1.85-.9-2.5-.59-.78-1.1-1.37-1.1-2.07 0-.25.07-.46.2-.64l.3-.4c.3-.4.5-.94.5-1.46V6.5c0-.28-.22-.5-.5-.5h-1c-.28 0-.5.22-.5.5v1.17c-.1-.08-.2-.17-.3-.27-.2-.2-.5-.38-.5-.9v-.5zm-1.5 5c-.5 1-.9 2-.9 3.5 0 2.5 1.3 3.69 2.1 5.43.36.8.4 1.65.4 2.5h1.5c0-1-.04-2.01-.5-3-.93-2-2.5-3.43-2.5-5.93 0-.69.26-1.31.66-1.84.59-.78 1.34-1.65 1.34-2.9 0-.43-.13-.85-.5-1.13v1.2c0 .28-.22.5-.5.5h-1c-.28 0-.5-.22-.5-.5V8.12c0-.52.2-1.06.5-1.46l.3-.4c.13-.18.2-.39.2-.64 0-.7-.51-1.29-1.1-2.07-.5-.65-.9-1.54-.9-2.5z"/>
+    </svg>
+  `;
+}
+
+function showVisualCapture() {
+  const clientName = document.getElementById('clientName').value || 'Sin nombre';
+  const date = document.getElementById('effectiveDate').value || new Date().toLocaleDateString('es-ES');
+  const notes = document.getElementById('orderNotes').value.trim();
+  
+  let itemsHTML = '';
+  let hasItems = false;
+  
+  PRODUCT_CATALOG.forEach(cat => {
+    cat.products.forEach(p => {
+      const qty = parseFloat(document.getElementById('qty-' + p.id)?.value) || 0;
+      if (qty > 0) {
+        hasItems = true;
+        const dto = parseFloat(document.getElementById('dto-' + p.id)?.value) || 0;
+        const dtoEur = parseFloat(document.getElementById('dtoeur-' + p.id)?.value) || 0;
+        const bruta = qty * p.precio;
+        const descPct = bruta * (dto / 100);
+        const descEur = qty * dtoEur;
+        const neta = Math.max(0, bruta - descPct - descEur);
+        
+        let descText = '';
+        if (dto > 0 && dtoEur > 0) descText = `-${dto}% y -${dtoEur}€/c`;
+        else if (dto > 0) descText = `-${dto}%`;
+        else if (dtoEur > 0) descText = `-${dtoEur}€/c`;
+        else descText = 'Sin desc.';
+
+        itemsHTML += `
+          <tr style="border-bottom: 1px dashed rgba(0,0,0,0.12);">
+            <td style="padding: 8px 0; font-size: 0.85rem; font-weight: 700; color: #222; text-align: left;">${p.marca}</td>
+            <td style="padding: 8px 0; font-size: 0.85rem; text-align: center; color: #222;">${qty} cjs</td>
+            <td style="padding: 8px 0; font-size: 0.75rem; text-align: center; color: #666;">${descText}</td>
+            <td style="padding: 8px 0; font-size: 0.85rem; text-align: right; font-weight: 700; color: #000; font-variant-numeric: tabular-nums;">${formatCurrency(neta)}</td>
+          </tr>
+        `;
+      }
+    });
+  });
+  
+  if (!hasItems) {
+    showToast('⚠️ Introduce cantidades para ver la captura.');
+    return;
+  }
+  
+  const totalCajas = document.getElementById('totalCajas').textContent;
+  const totalUnidades = document.getElementById('totalUnidades').textContent;
+  const totalNeta = document.getElementById('totalNeta').textContent;
+  
+  const notesSection = notes ? `
+    <div style="margin-top: 15px; padding: 10px 14px; background: #F8F9FA; border-left: 3px solid #E61E2A; border-radius: 4px; font-size: 0.8rem; color: #333; text-align: left; line-height: 1.4;">
+      <strong>Observaciones:</strong> ${notes}
+    </div>
+  ` : '';
+
+  const modalTitle = document.getElementById('modal-title');
+  const modalBody = document.getElementById('modal-body');
+  
+  if (modalTitle) modalTitle.textContent = 'Ficha de Captura de Pedido';
+  if (modalBody) {
+    modalBody.innerHTML = `
+      <div class="visual-receipt" style="background: #ffffff; color: #000000; padding: 24px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); border: 2px solid #E61E2A; text-align: center; font-family: 'Outfit', sans-serif; max-width: 100%;">
+        <div style="display: flex; justify-content: center; align-items: center; gap: 10px; margin-bottom: 18px;">
+          <img src="assets/logo.jpg" alt="Coca-Cola" style="height: 36px; border-radius: 4px; object-fit: contain;">
+          <span style="font-size: 1.15rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: #E61E2A;">Ficha de Pedido</span>
+        </div>
+        
+        <div style="font-size: 0.85rem; color: #555; margin-bottom: 16px; border-bottom: 2px solid #E61E2A; padding-bottom: 10px; text-align: left; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px;">
+          <div>
+            <strong>Cliente:</strong> <span style="font-weight: 700; color: #000;">${clientName.toUpperCase()}</span>
+          </div>
+          <div>
+            <strong>Fecha:</strong> ${date}
+          </div>
+        </div>
+        
+        <table style="width: 100%; border-collapse: collapse; margin-bottom: 18px;">
+          <thead>
+            <tr style="border-bottom: 1.5px solid #E61E2A; font-size: 0.75rem; text-transform: uppercase; color: #555; text-align: left; font-weight: 700;">
+              <th style="padding-bottom: 6px; text-align: left;">Marca</th>
+              <th style="padding-bottom: 6px; text-align: center;">Cajas</th>
+              <th style="padding-bottom: 6px; text-align: center;">Dcto.</th>
+              <th style="padding-bottom: 6px; text-align: right;">Total Neto</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${itemsHTML}
+          </tbody>
+        </table>
+        
+        <div style="border-top: 1.5px solid #E61E2A; padding-top: 12px; text-align: left; font-size: 0.85rem; color: #333;">
+          <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+            <span>Total Cajas:</span>
+            <strong style="color: #000; font-size: 0.95rem;">${totalCajas}</strong>
+          </div>
+          <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+            <span>Total Unidades:</span>
+            <strong style="color: #000; font-size: 0.95rem;">${totalUnidades}</strong>
+          </div>
+          <div style="display: flex; justify-content: space-between; font-size: 1.1rem; font-weight: 800; border-top: 1.5px dashed #ccc; padding-top: 8px; margin-top: 6px; color: #E61E2A;">
+            <span>IMPORTE NETO:</span>
+            <span>${totalNeta}</span>
+          </div>
+        </div>
+        
+        ${notesSection}
+        
+        <div style="margin-top: 20px; font-size: 0.7rem; color: #999; border-top: 1px solid #eee; padding-top: 10px;">
+          Generado por Coca-Cola Plantillas • Delegación ${document.getElementById('currentLocationText')?.textContent || 'Badajoz'}
+        </div>
+      </div>
+    `;
+  }
+  
+  // Mostrar el modal
+  const overlay = document.getElementById('modal-overlay');
+  if (overlay) overlay.classList.remove('hidden');
+}
+
+function openMailtoComposer() {
+  const clientName = document.getElementById('clientName').value || 'Sin nombre';
+  const date = document.getElementById('effectiveDate').value || new Date().toLocaleDateString('es-ES');
+  const notes = document.getElementById('orderNotes').value.trim();
+  
+  let body = `PEDIDO - ${clientName.toUpperCase()}\n`;
+  body += `Fecha: ${date}\n`;
+  body += `------------------------------------------\n\n`;
+  
+  let hasProducts = false;
+  PRODUCT_CATALOG.forEach(cat => {
+    let catHasProducts = false;
+    let catText = '';
+    cat.products.forEach(p => {
+      const qty = parseFloat(document.getElementById('qty-' + p.id)?.value) || 0;
+      if (qty > 0) {
+        if (!catHasProducts) {
+          catText += `[${cat.name}]\n`;
+          catHasProducts = true;
+          hasProducts = true;
+        }
+        const dto = parseFloat(document.getElementById('dto-' + p.id)?.value) || 0;
+        const dtoEur = parseFloat(document.getElementById('dtoeur-' + p.id)?.value) || 0;
+        catText += ` - ${p.marca}: ${qty} cajas`;
+        
+        let desc = [];
+        if (dto > 0) desc.push(`-${dto}%`);
+        if (dtoEur > 0) desc.push(`-${dtoEur}€/cj`);
+        if (desc.length > 0) catText += ` (${desc.join(' / ')})`;
+        
+        catText += `\n`;
+      }
+    });
+    if (catHasProducts) {
+      body += catText + '\n';
+    }
+  });
+  
+  if (!hasProducts) {
+    showToast('⚠️ No hay productos para enviar por correo.');
+    return;
+  }
+  
+  if (notes) {
+    body += `Observaciones:\n${notes}\n\n`;
+  }
+  
+  body += `------------------------------------------\n`;
+  body += `TOTALES:\n`;
+  body += `Cajas: ${document.getElementById('totalCajas').textContent}\n`;
+  body += `Unidades: ${document.getElementById('totalUnidades').textContent}\n`;
+  body += `Importe Neto: ${document.getElementById('totalNeta').textContent}\n`;
+  
+  const subject = `Propuesta de Pedido - ${clientName}`;
+  const mailtoUrl = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  window.location.href = mailtoUrl;
+}
+
+function toggleContrastMode() {
+  const isHighContrast = document.body.classList.toggle('high-contrast-mode');
+  localStorage.setItem('cocacola_contrast', isHighContrast ? 'true' : 'false');
+  showToast(isHighContrast ? '☀️ Modo Sol activado' : '🕶️ Modo Diseño activado');
+}
+
+function loadContrastMode() {
+  const contrast = localStorage.getItem('cocacola_contrast');
+  if (contrast === 'true') {
+    document.body.classList.add('high-contrast-mode');
+  }
 }
 

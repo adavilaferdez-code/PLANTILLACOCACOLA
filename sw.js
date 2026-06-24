@@ -1,4 +1,4 @@
-const CACHE_NAME = 'cocacola-plantillas-v49';
+const CACHE_NAME = 'cocacola-plantillas-v52';
 const ASSETS = [
   './',
   './index.html',
@@ -8,6 +8,7 @@ const ASSETS = [
   './assets/icon.svg',
   './assets/logo.jpg',
   './assets/cocacola_icon.png',
+  './assets/desk_background.png',
   './assets/catalogo_2025.pdf',
   './manifest.json'
 ];
